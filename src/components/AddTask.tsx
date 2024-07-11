@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -26,15 +25,9 @@ const AddTaskDialog: React.FC<AddTaskDialogProps> = ({
   onAdd,
   setDto,
 }) => {
-  const [taskName, setTaskName] = useState("");
 
   const handleAdd = () => {
-    const dto: TaskDto = {
-      name: taskName,
-    };
-    setDto (dto)
     onAdd();
-    setTaskName("");
   };
 
 
@@ -50,8 +43,7 @@ const AddTaskDialog: React.FC<AddTaskDialogProps> = ({
           margin="dense"
           label="Nom de la tâche"
           fullWidth
-          value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          onChange={(e) => setDto({ name: e.target.value })}
         />
       </DialogContent>
       <DialogActions>

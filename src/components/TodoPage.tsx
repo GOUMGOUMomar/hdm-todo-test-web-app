@@ -14,7 +14,8 @@ import {
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch.ts";
 import { Task } from "../index";
-import AddTaskDialog from './AddTask.tsx'
+import AddTaskDialog from './AddTask.tsx';
+import axios from 'axios';
 
 interface TaskDto {
   name: string;
@@ -35,10 +36,10 @@ const TodoPage = () => {
 
   const handleSave = async () => {
     if (dto) {
-      await api.post("/tasks", dto);
+      const response = await axios.post('http://localhost:3000/tasks', dto);
       handleFetchTasks();
+      setOpenDialog(false)
     }
-    setOpenDialog(false)
   };
 
   useEffect(() => {
@@ -75,7 +76,8 @@ const TodoPage = () => {
                   <IconButton color="success" disabled>
                     <Check />
                   </IconButton>
-                  <IconButton color="error">
+                  <IconButton color="error"
+                  onClick={() => handleDelete(task.id)}>
                     <Delete />
                   </IconButton>
                 </Box>
